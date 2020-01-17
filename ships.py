@@ -109,14 +109,15 @@ class Ship():
 	
 	def draw(self, surface):
 		"""draws all parts of the ship"""
+		pygame.draw.circle(surface, self.color, (int(self.pos[0]), int(self.pos[1])), int(Ship.height/2))
 
-		pygame.draw.polygon(surface, self.color, self.body_verts) # main body
+		"""pygame.draw.polygon(surface, self.color, self.body_verts) # main body
 		if self.attack_mode:
 			pygame.draw.polygon(surface, self.gun_color, self.r_gun_verts) # guns
 			pygame.draw.polygon(surface, self.gun_color, self.l_gun_verts)
 			pygame.draw.polygon(surface, self.color, self.r_wing_verts) # wings
 			pygame.draw.polygon(surface, self.color, self.l_wing_verts)
-
+"""
 class Player_Ship(Ship):
 
 	def __init__(self, health, position, direction):
