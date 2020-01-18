@@ -26,22 +26,41 @@ def main():
 		#print("hi")
 		for obstacle in Obstacle_Manager.obstacle_list:
 			if coll.collide(player.coll_ship, obstacle.coll_obstacle, response):
-				print(response.overlap_n)
-				"""if response.overlap_n.x and response.overlap_n.y:
-					player.update_pos( - abs(response.overlap_n.x) - player.vel[0], - abs(response.overlap_n.y) - player.vel[1])"""
 				if abs(response.overlap_n.x) == 1:
-					player.update_pos(- abs(response.overlap_n.x) * player.vel[0], 0)
+					player.update_pos(- player.vel[0], 0)
 				elif abs(response.overlap_n.y) == 1:
-					player.update_pos(0, - abs(response.overlap_n.y) * player.vel[1])
+					player.update_pos(0, - player.vel[1])
 				else:
-					if response.overlap_n.x > 0:
-						player.update_pos(abs(response.overlap_n.x) + player.vel[0], 0) 
-					else:
-						player.update_pos(- abs(response.overlap_n.x) - player.vel[0], 0)
+					"""#top
 					if response.overlap_n.y > 0:
-						player.update_pos(0, - abs(response.overlap_n.y) + player.vel[1])
+						#left
+						if response.overlap_n.x > 0:
+							pass
+						#right
+						else:
+							pass"""
+
+						if player.vel[0] > 0:
+							player.update_pos(player.vel[1], - player.vel[0])
+						else:
+							player.update_pos(- player.vel[1], player.vel[0])
+					#bottom
 					else:
-						player.update_pos(0, abs(response.overlap_n.y) + player.vel[1])
+						"""#left
+						if response.overlap_n.x > 0:
+							pass
+						#right
+						else:
+							if player.dir <= math.pi/4 or player.dir >= math.pi * 3/2:
+								player.update_pos(player.vel[1], - player.vel[0])
+							elif player.dir > math.pi/4 and player.dir < math.pi:
+								player.update_pos(- player.vel[1], player.vel[0])
+							"""
+
+						if player.vel[0] > 0:
+							player.update_pos(- player.vel[1], player.vel[0])
+						else:
+							player.update_pos(player.vel[1], - player.vel[0])
 				response.reset()
 
 	def run_game():

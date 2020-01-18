@@ -88,6 +88,8 @@ class Ship():
 		self.coll_ship.pos = coll.Vector(self.pos[0], self.pos[1])
 
 		update_vert_pos(self.body_verts)
+
+		#only updates attack mode ship parts when 
 		if self.attack_mode:
 			update_vert_pos(self.r_wing_verts)
 			update_vert_pos(self.l_wing_verts)
