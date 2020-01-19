@@ -27,3 +27,8 @@ def rotate_vertices(vertices, center, angle):
 
 	for point in vertices:
 		rotate_point(center, point, angle)
+
+def dist(point1, point2):
+	"""returns the distance between 2 points"""
+
+	return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)

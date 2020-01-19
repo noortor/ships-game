@@ -10,16 +10,15 @@ class Obstacle():
 		self.width = width
 		self.pos = position
 		self.color = (255,255,255)
-		self.verts = [
-			[self.pos[0] + self.width/2, self.pos[1] + self.height/2],
-			[self.pos[0] + self.width/2, self.pos[1] - self.height/2],
-			[self.pos[0] - self.width/2, self.pos[1] - self.height/2],
-			[self.pos[0] - self.width/2, self.pos[1] + self.height/2]
-		]
+		self.verts = {}
+		self.verts["b_left"] = [self.pos[0] - self.width/2, self.pos[1] + self.height/2]
+		self.verts["b_right"] = [self.pos[0] + self.width/2, self.pos[1] + self.height/2]
+		self.verts["t_left"] = [self.pos[0] - self.width/2, self.pos[1] - self.height/2]
+		self.verts["t_right"] = [self.pos[0] + self.width/2, self.pos[1] - self.height/2]
 		self.coll_obstacle = coll.Poly.from_box(coll.Vector(position[0], position[1]), width, height)
 
 	def draw(self, surface):
-		pygame.draw.polygon(surface, self.color, self.verts)
+		pygame.draw.polygon(surface, self.color, (self.verts["b_left"], self.verts["b_right"], self.verts["t_right"], self.verts["t_left"]))
 
 class Obstacle_Manager():
 

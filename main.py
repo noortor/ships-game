@@ -31,36 +31,27 @@ def main():
 				elif abs(response.overlap_n.y) == 1:
 					player.update_pos(0, - player.vel[1])
 				else:
-					"""#top
+					#top
 					if response.overlap_n.y > 0:
 						#left
 						if response.overlap_n.x > 0:
 							pass
 						#right
 						else:
-							pass"""
+							pass
 
-						if player.vel[0] > 0:
-							player.update_pos(player.vel[1], - player.vel[0])
-						else:
-							player.update_pos(- player.vel[1], player.vel[0])
 					#bottom
 					else:
-						"""#left
+						#left
 						if response.overlap_n.x > 0:
-							pass
+							overlap = player.height / 2 - dist(player.pos, obstacle.verts["b_left"])
+							push_dir = math.atan2(player.pos[1] - obstacle.verts["b_left"][1], player.pos[0] - obstacle.verts["b_left"][0])
+							player.update_pos(x_comp(overlap, push_dir), y_comp(overlap, push_dir))
+							print(push_dir)
 						#right
 						else:
-							if player.dir <= math.pi/4 or player.dir >= math.pi * 3/2:
-								player.update_pos(player.vel[1], - player.vel[0])
-							elif player.dir > math.pi/4 and player.dir < math.pi:
-								player.update_pos(- player.vel[1], player.vel[0])
-							"""
+							pass
 
-						if player.vel[0] > 0:
-							player.update_pos(- player.vel[1], player.vel[0])
-						else:
-							player.update_pos(player.vel[1], - player.vel[0])
 				response.reset()
 
 	def run_game():
