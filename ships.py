@@ -19,7 +19,7 @@ class Ship():
 	attack_mode_last_state = True
 	power_up = None
 	fire_cooldown = 5 * DELAY / 20 # 
-
+	h_box_radius = height / 2
 
 	def __init__(self, health, position, direction):
 		self.hp = health
@@ -38,7 +38,7 @@ class Ship():
 		self.gun_color = (100, 100, 100)
 		self.laser_color = (255, 0, 0)
 		self.fire_cooldown_count = 0
-		self.coll_ship = coll.Circle(coll.Vector(self.pos[0], self.pos[1]), Ship.height / 2)
+		self.coll_ship = coll.Circle(coll.Vector(self.pos[0], self.pos[1]), Ship.h_box_radius)
 
 	def set_x_vel(self, new_x_vel):
 		self.vel[0] = new_x_vel
@@ -111,15 +111,15 @@ class Ship():
 	
 	def draw(self, surface):
 		"""draws all parts of the ship"""
-		pygame.draw.circle(surface, self.color, (int(self.pos[0]), int(self.pos[1])), int(Ship.height/2))
+		#pygame.draw.circle(surface, self.color, (int(self.pos[0]), int(self.pos[1])), int(Ship.h_box_radius))
 
-		"""pygame.draw.polygon(surface, self.color, self.body_verts) # main body
+		pygame.draw.polygon(surface, self.color, self.body_verts) # main body
 		if self.attack_mode:
 			pygame.draw.polygon(surface, self.gun_color, self.r_gun_verts) # guns
 			pygame.draw.polygon(surface, self.gun_color, self.l_gun_verts)
 			pygame.draw.polygon(surface, self.color, self.r_wing_verts) # wings
 			pygame.draw.polygon(surface, self.color, self.l_wing_verts)
-"""
+
 class Player_Ship(Ship):
 
 	def __init__(self, health, position, direction):
@@ -229,5 +229,5 @@ class Enemy_Ship(Ship):
 
 	def control(self):
 		#add code
-		return None
+		pass
 

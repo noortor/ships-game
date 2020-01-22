@@ -16,7 +16,7 @@ def y_comp(vector_len, angle):
 
 def rotate_point(center, point, angle):
 	"""rotates a point around a center by a certain angle"""
-
+	
 	diff_x = point[0] - center[0]
 	diff_y = point[1] - center[1]
 	point[0] = center[0] + diff_x * math.cos(angle) - diff_y * math.sin(angle)

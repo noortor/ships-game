@@ -21,36 +21,49 @@ def main():
 					Laser_Manager.laser_list.remove(laser)
 					break
 
+	def corner_collision_pushback(ship, corner):
+		"""pushes back a given ship from a corner"""
+
+		overlap = Ship.h_box_radius - dist(ship.pos, corner)
+		push_dir = math.atan2(ship.pos[1] - corner[1], ship.pos[0] - corner[0])
+		ship.update_pos(x_comp(overlap, push_dir), y_comp(overlap, push_dir))
+
 	def player_obstacle_collision():
-		"""changes the horizonal or vertical velocity of the ship to 0 """
-		#print("hi")
+		"""detects collision between a ship and obstacles and moves the ship accordingly"""
+
 		for obstacle in Obstacle_Manager.obstacle_list:
 			if coll.collide(player.coll_ship, obstacle.coll_obstacle, response):
-				if abs(response.overlap_n.x) == 1:
-					player.update_pos(- player.vel[0], 0)
-				elif abs(response.overlap_n.y) == 1:
-					player.update_pos(0, - player.vel[1])
+				#left side collision
+				if response.overlap_n.x == 1:
+					player.update_pos((obstacle.pos[0] - obstacle.width/2) - (player.pos[0] + Ship.h_box_radius), 0)
+				#right side collision
+				elif response.overlap_n.x == -1:
+					player.update_pos((obstacle.pos[0] + obstacle.width/2) - (player.pos[0] - Ship.h_box_radius), 0)
+				#top collision
+				elif response.overlap_n.y == 1:
+					player.update_pos(0, (obstacle.pos[1] - obstacle.height/2) - (player.pos[1] + Ship.h_box_radius))
+				#bottom collision
+				elif response.overlap_n.y == -1:
+					player.update_pos(0, (obstacle.pos[1] + obstacle.height/2) - (player.pos[1] - Ship.h_box_radius))
+				#corner collision
 				else:
 					#top
 					if response.overlap_n.y > 0:
 						#left
 						if response.overlap_n.x > 0:
-							pass
+							corner_collision_pushback(player, obstacle.verts["t_left"])
 						#right
 						else:
-							pass
+							corner_collision_pushback(player, obstacle.verts["t_right"])
 
 					#bottom
 					else:
 						#left
 						if response.overlap_n.x > 0:
-							overlap = player.height / 2 - dist(player.pos, obstacle.verts["b_left"])
-							push_dir = math.atan2(player.pos[1] - obstacle.verts["b_left"][1], player.pos[0] - obstacle.verts["b_left"][0])
-							player.update_pos(x_comp(overlap, push_dir), y_comp(overlap, push_dir))
-							print(push_dir)
+							corner_collision_pushback(player, obstacle.verts["b_left"])
 						#right
 						else:
-							pass
+							corner_collision_pushback(player, obstacle.verts["b_right"])
 
 				response.reset()
 
